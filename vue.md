@@ -378,3 +378,134 @@ post: {
 额外的，每次父级组件发生更新时，子组件中所有的prop都将会刷新为最新的值。这意味着你不应该在一个子组件内部改变 prop。如果你这样做了，Vue 会在浏览器的控制台中发出警告。
 
 > 注意在 JavaScript 中对象和数组是通过引用传入的，所以对于一个数组或对象类型的 prop 来说，在子组件中改变这个对象或数组本身将会影响到父组件的状态。
+
+
+实例传数据给子组件      通过在子组件定义props属性，实例就可以直接通过属性的方式传递数据给组件
+子组件传数据给实例      通过在子组件使用`$emit`来触发事件，在实例中使用`v-on`来监听事件
+
+父组件可使用`$children`来访问子组件
+子组件可使用`$parent`来访问父组件
+
+
+例如
+~~~
+//子组件
+<button @click="$emit('close')"></button>
+
+//父组件
+@close="xxx"
+~~~
+
+当xxx复杂时，直接把JS代码写在`v-on`指令中是不可行的。因此`v-on`还可以接收一个需要调用的方法名称
+~~~
+<div id="example-2">
+  <!-- `greet` 是在下面定义的方法名 -->
+  <button v-on:click="greet">Greet</button>
+</div>
+
+var example2 = new Vue({
+  el: '#example-2',
+  data: {
+    name: 'Vue.js'
+  },
+  // 在 `methods` 对象中定义方法
+  methods: {
+    greet: function (event) {
+      // `this` 在方法里指向当前 Vue 实例
+      alert('Hello ' + this.name + '!')
+      // `event` 是原生 DOM 事件
+      if (event) {
+        alert(event.target.tagName)
+      }
+    }
+  }
+})
+
+// 也可以用 JavaScript 直接调用方法
+example2.greet() // => 'Hello Vue.js!'
+~~~
+
+>[Vue warn]: Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value. Prop being mutated: "selected"
+
+vue不提倡在组件里面修改`props`的值，`props`仅用来数据传递（而非修改数据）。我们可以自己在内部定义变量`data`来起到一样的效果
+
+- - -
+
+前端可以根据带锚点的方式实现简单路由（不需要刷新页面）  
+
+  http://localhost:8080/#/about/
+
+路由让我们可以访问诸如`http://localhost:8080/#/about/`这些页面的时候不带刷新，直接展示
+
+  \<router-view>\</router-view>
+
+这句代码在页面中放入一个路由试图容器，当我们访问`http://localhost:8080/#/about/`的时候会将about的内容放进去
+
+如果不是组件的话，正常data的写法可以直接写一个对象，比如`data:{msg:'下载'}`，但由于组件是会在多个地方引用的，JS中直接共享对象会造成引用传递，也就是说修改了msg后所有按钮的msg都会跟着修改，所以这里用function来每次返回一个对象实例
+
+在组件中，props是专门用来暴露组件的属性接口
+
+
+`$emit`，触发机制，父组件监听，子组件触发。由引用方（暂且叫做父组件）监听子组件的内置方法；同时在子组件中，需要触发这个事件
+~~~
+//quiButton.vue
+//子组件中的代码
+<script>
+  export default {
+    props: {
+      msg: {
+        default: '下载'
+      }
+    },
+    methods: {
+      btnClickEvent: function(){
+        alert("先弹出默认的文案");
+        this.$emit('btnClickEvent');//关键代码父组件触发自定义事件
+      }
+    }
+  }
+</script>
+~~~
+
+~~~
+//监听子组件的事件 
+<qui-btn v-on:btnClickEvent="doSth" msg="我可以点击" ></qui-btn>
+~~~
+上面的代码在引用组件的时候，注册了一个事件，这个btnClickEvent事件是之前在按钮组件中绑定到按钮的click事件中的，然后我们给这个事件一个自定义的方法doSth
+
+
+
+slot标签，插槽
+~~~
+<template>
+  <button class="qui-btn" v-on:click="btnClickEvent">
+    <slot name="icon"></slot><!--重点在这里-->
+    <span>{{msg}}</span>
+  </button>
+</template>
+~~~
+
+~~~
+//pageQuiButton.vue
+<qui-btn msg="下载" class="with-icon">
+  <img slot="icon" class="ico" src="xxx.png" />
+</qui-btn>
+~~~
+img上有个关键字`slot="icon"`，对应组件中的`name="icon"`，渲染的时候，会将img整个替换掉组件中的对应name的`<slot>`标签。slot的翻译是插槽的意思，相当于把img这块内容查到一个名为icon的插槽里面去。
+
+
+~~~
+beforeCreate:function(){},//组件实例化之前
+created:function(){},//组件实例化了
+beforeMount:function(){},//组件写入dom结构之前
+mounted:function(){//组件写入dom结构了
+  console.log(this.$el);
+  console.log(this.$children);  //通过数组获取  [0].msg
+  console.log(this.$refs);      //获取组件对象信息
+  console.log(this.$refs.child1.msg); //通过对象集合获取
+},
+beforeUpdate:function(){},//组件更新前
+updated:function(){},//组件更新比如修改了文案
+beforeDestroy:function(){},//组件销毁之前
+destroyed:function(){}//组件已经销毁
+~~~
