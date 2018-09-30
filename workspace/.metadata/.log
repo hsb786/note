@@ -181,3 +181,584 @@ Caused by: java.net.ConnectException: Connection refused: connect
 
 !ENTRY org.xmind.core.command 1 0 2018-07-27 11:25:21.501
 !MESSAGE Malformed URI: C:\code\note\vue.xmind
+!SESSION 2018-08-01 08:59:11.978 -----------------------------------------------
+eclipse.buildId=R3.7.7.201801311814
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data ./workspace -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-08-01 08:59:13.673
+!MESSAGE Skip unrecognized command line argument: '-eclipse.keyring'
+
+!ENTRY org.xmind.cathy 1 0 2018-08-01 08:59:13.684
+!MESSAGE Skip unrecognized command line argument: '@user.home/Application Data/XMind/secure_storage'
+
+!ENTRY org.xmind.cathy 1 0 2018-08-01 08:59:17.467
+!MESSAGE Path queued to be opened: C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-08-01 08:59:20.947
+!MESSAGE Ready to open files: [C:\code\note\多线程.xmind]
+
+!ENTRY org.xmind.core.command 1 0 2018-08-01 08:59:20.969
+!MESSAGE Malformed URI: C:\code\note\多线程.xmind
+
+!ENTRY net.xmind.workbench 4 0 2018-08-01 08:59:24.004
+!MESSAGE Failed to retrieve site events: 3
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:1009)
+	at org.xmind.core.net.internal.XMindNetRequest.executeInDaemonThread(XMindNetRequest.java:896)
+	at org.xmind.core.net.internal.XMindNetRequest.access$0(XMindNetRequest.java:889)
+	at org.xmind.core.net.internal.XMindNetRequest$1.run(XMindNetRequest.java:870)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:673)
+	at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:173)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264)
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1156)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1050)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1564)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:982)
+	... 4 more
+
+!ENTRY org.xmind.ui.mindmap 4 4 2018-08-01 09:01:46.588
+!MESSAGE [save] start...[save] add state...[save] clean...[save] doSave start...[save] doSaveWorkbookToTempStorage start...[save] doSaveWorkbookToTempStorage over...[save] doSaveWorkbookToURIFromSource start...[save] new file...[save] serialize start...[save] new FileOutputStream...[save] setOutputStream...[save] serialize success...[save] doSaveWorkbookToURIFromSource over...[save] doSave over...[save] success...over...
+!SESSION 2018-08-01 15:06:48.093 -----------------------------------------------
+eclipse.buildId=R3.7.7.201801311814
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data ./workspace -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-08-01 15:06:49.654
+!MESSAGE Skip unrecognized command line argument: '-eclipse.keyring'
+
+!ENTRY org.xmind.cathy 1 0 2018-08-01 15:06:49.661
+!MESSAGE Skip unrecognized command line argument: '@user.home/Application Data/XMind/secure_storage'
+
+!ENTRY org.xmind.cathy 1 0 2018-08-01 15:06:53.360
+!MESSAGE Path queued to be opened: C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-08-01 15:06:56.449
+!MESSAGE Ready to open files: [C:\code\note\多线程.xmind]
+
+!ENTRY org.xmind.core.command 1 0 2018-08-01 15:06:56.469
+!MESSAGE Malformed URI: C:\code\note\多线程.xmind
+
+!ENTRY net.xmind.workbench 4 0 2018-08-01 15:06:58.779
+!MESSAGE Failed to retrieve site events: 3
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:1009)
+	at org.xmind.core.net.internal.XMindNetRequest.executeInDaemonThread(XMindNetRequest.java:896)
+	at org.xmind.core.net.internal.XMindNetRequest.access$0(XMindNetRequest.java:889)
+	at org.xmind.core.net.internal.XMindNetRequest$1.run(XMindNetRequest.java:870)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:673)
+	at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:173)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264)
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1156)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1050)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1564)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:982)
+	... 4 more
+
+!ENTRY org.xmind.ui.mindmap 4 4 2018-08-01 15:52:02.242
+!MESSAGE [save] start...[save] add state...[save] clean...[save] doSave start...[save] doSaveWorkbookToTempStorage start...[save] doSaveWorkbookToTempStorage over...[save] doSaveWorkbookToURIFromSource start...[save] new file...[save] serialize start...[save] new FileOutputStream...[save] setOutputStream...[save] serialize success...[save] doSaveWorkbookToURIFromSource over...[save] doSave over...[save] success...over...
+!SESSION 2018-08-02 09:13:27.381 -----------------------------------------------
+eclipse.buildId=R3.7.7.201801311814
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data ./workspace -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-08-02 09:13:29.006
+!MESSAGE Skip unrecognized command line argument: '-eclipse.keyring'
+
+!ENTRY org.xmind.cathy 1 0 2018-08-02 09:13:29.022
+!MESSAGE Skip unrecognized command line argument: '@user.home/Application Data/XMind/secure_storage'
+
+!ENTRY org.xmind.cathy 1 0 2018-08-02 09:13:32.241
+!MESSAGE Path queued to be opened: C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-08-02 09:13:35.147
+!MESSAGE Ready to open files: [C:\code\note\多线程.xmind]
+
+!ENTRY org.xmind.core.command 1 0 2018-08-02 09:13:35.163
+!MESSAGE Malformed URI: C:\code\note\多线程.xmind
+
+!ENTRY net.xmind.workbench 4 0 2018-08-02 09:13:37.319
+!MESSAGE Failed to retrieve site events: 3
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:1009)
+	at org.xmind.core.net.internal.XMindNetRequest.executeInDaemonThread(XMindNetRequest.java:896)
+	at org.xmind.core.net.internal.XMindNetRequest.access$0(XMindNetRequest.java:889)
+	at org.xmind.core.net.internal.XMindNetRequest$1.run(XMindNetRequest.java:870)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:673)
+	at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:173)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264)
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1156)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1050)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1564)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:982)
+	... 4 more
+
+!ENTRY org.xmind.ui.mindmap 4 4 2018-08-02 13:41:36.672
+!MESSAGE [save] start...[save] add state...[save] clean...[save] doSave start...[save] doSaveWorkbookToTempStorage start...[save] doSaveWorkbookToTempStorage over...[save] doSaveWorkbookToURIFromSource start...[save] new file...[save] serialize start...[save] new FileOutputStream...[save] setOutputStream...[save] serialize success...[save] doSaveWorkbookToURIFromSource over...[save] doSave over...[save] success...over...
+
+!ENTRY org.xmind.ui.mindmap 4 4 2018-08-02 13:41:56.456
+!MESSAGE [save] start...[save] add state...[save] clean...[save] doSave start...[save] doSaveWorkbookToTempStorage start...[save] doSaveWorkbookToTempStorage over...[save] doSaveWorkbookToURIFromSource start...[save] new file...[save] serialize start...[save] new FileOutputStream...[save] setOutputStream...[save] serialize success...[save] doSaveWorkbookToURIFromSource over...[save] doSave over...[save] success...over...
+
+!ENTRY org.xmind.ui.mindmap 4 4 2018-08-02 14:38:16.450
+!MESSAGE [save] start...[save] add state...[save] clean...[save] doSave start...[save] doSaveWorkbookToTempStorage start...[save] doSaveWorkbookToTempStorage over...[save] doSaveWorkbookToURIFromSource start...[save] new file...[save] serialize start...[save] new FileOutputStream...[save] setOutputStream...[save] serialize success...[save] doSaveWorkbookToURIFromSource over...[save] doSave over...[save] success...over...
+!SESSION 2018-08-03 15:28:28.715 -----------------------------------------------
+eclipse.buildId=R3.7.7.201801311814
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data ./workspace -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-08-03 15:28:30.359
+!MESSAGE Skip unrecognized command line argument: '-eclipse.keyring'
+
+!ENTRY org.xmind.cathy 1 0 2018-08-03 15:28:30.373
+!MESSAGE Skip unrecognized command line argument: '@user.home/Application Data/XMind/secure_storage'
+
+!ENTRY org.xmind.cathy 1 0 2018-08-03 15:28:34.191
+!MESSAGE Path queued to be opened: C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-08-03 15:28:34.195
+!MESSAGE Path queued to be opened: C:\code\note\虚拟机.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-08-03 15:28:37.940
+!MESSAGE Ready to open files: [C:\code\note\多线程.xmind, C:\code\note\虚拟机.xmind]
+
+!ENTRY org.xmind.core.command 1 0 2018-08-03 15:28:37.962
+!MESSAGE Malformed URI: C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.core.command 1 0 2018-08-03 15:28:38.034
+!MESSAGE Malformed URI: C:\code\note\虚拟机.xmind
+
+!ENTRY net.xmind.workbench 4 0 2018-08-03 15:28:41.289
+!MESSAGE Failed to retrieve site events: 3
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:1009)
+	at org.xmind.core.net.internal.XMindNetRequest.executeInDaemonThread(XMindNetRequest.java:896)
+	at org.xmind.core.net.internal.XMindNetRequest.access$0(XMindNetRequest.java:889)
+	at org.xmind.core.net.internal.XMindNetRequest$1.run(XMindNetRequest.java:870)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:673)
+	at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:173)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264)
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1156)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1050)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1564)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:982)
+	... 4 more
+!SESSION 2018-09-17 14:38:59.844 -----------------------------------------------
+eclipse.buildId=R3.7.7.201801311814
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\vue.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data ./workspace -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\vue.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:39:01.641
+!MESSAGE Skip unrecognized command line argument: '-eclipse.keyring'
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:39:01.652
+!MESSAGE Skip unrecognized command line argument: '@user.home/Application Data/XMind/secure_storage'
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:39:06.674
+!MESSAGE Path queued to be opened: C:\code\note\vue.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:39:10.124
+!MESSAGE Ready to open files: [C:\code\note\vue.xmind]
+
+!ENTRY org.xmind.core.command 1 0 2018-09-17 14:39:10.140
+!MESSAGE Malformed URI: C:\code\note\vue.xmind
+
+!ENTRY net.xmind.workbench 4 0 2018-09-17 14:39:13.309
+!MESSAGE Failed to retrieve site events: 3
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:1009)
+	at org.xmind.core.net.internal.XMindNetRequest.executeInDaemonThread(XMindNetRequest.java:896)
+	at org.xmind.core.net.internal.XMindNetRequest.access$0(XMindNetRequest.java:889)
+	at org.xmind.core.net.internal.XMindNetRequest$1.run(XMindNetRequest.java:870)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:673)
+	at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:173)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264)
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1156)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1050)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1564)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:982)
+	... 4 more
+!SESSION 2018-09-17 14:39:43.499 -----------------------------------------------
+eclipse.buildId=R3.7.7.201801311814
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data ./workspace -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:39:44.974
+!MESSAGE Skip unrecognized command line argument: '-eclipse.keyring'
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:39:44.974
+!MESSAGE Skip unrecognized command line argument: '@user.home/Application Data/XMind/secure_storage'
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:39:46.188
+!MESSAGE Path queued to be opened: C:\code\note\多线程.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:39:47.339
+!MESSAGE Ready to open files: [C:\code\note\多线程.xmind]
+
+!ENTRY org.xmind.core.command 1 0 2018-09-17 14:39:47.344
+!MESSAGE Malformed URI: C:\code\note\多线程.xmind
+
+!ENTRY net.xmind.workbench 4 0 2018-09-17 14:39:51.553
+!MESSAGE Failed to retrieve site events: 3
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:1009)
+	at org.xmind.core.net.internal.XMindNetRequest.executeInDaemonThread(XMindNetRequest.java:896)
+	at org.xmind.core.net.internal.XMindNetRequest.access$0(XMindNetRequest.java:889)
+	at org.xmind.core.net.internal.XMindNetRequest$1.run(XMindNetRequest.java:870)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:673)
+	at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:173)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264)
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1156)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1050)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1564)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:982)
+	... 4 more
+!SESSION 2018-09-17 14:40:09.134 -----------------------------------------------
+eclipse.buildId=R3.7.7.201801311814
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\基础.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data ./workspace -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\基础.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:40:10.624
+!MESSAGE Skip unrecognized command line argument: '-eclipse.keyring'
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:40:10.624
+!MESSAGE Skip unrecognized command line argument: '@user.home/Application Data/XMind/secure_storage'
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:40:11.833
+!MESSAGE Path queued to be opened: C:\code\note\基础.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:40:12.972
+!MESSAGE Ready to open files: [C:\code\note\基础.xmind]
+
+!ENTRY org.xmind.core.command 1 0 2018-09-17 14:40:12.978
+!MESSAGE Malformed URI: C:\code\note\基础.xmind
+
+!ENTRY net.xmind.workbench 4 0 2018-09-17 14:40:15.604
+!MESSAGE Failed to retrieve site events: 3
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:1009)
+	at org.xmind.core.net.internal.XMindNetRequest.executeInDaemonThread(XMindNetRequest.java:896)
+	at org.xmind.core.net.internal.XMindNetRequest.access$0(XMindNetRequest.java:889)
+	at org.xmind.core.net.internal.XMindNetRequest$1.run(XMindNetRequest.java:870)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:673)
+	at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:173)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264)
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1156)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1050)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1564)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:982)
+	... 4 more
+!SESSION 2018-09-17 14:40:18.851 -----------------------------------------------
+eclipse.buildId=R3.7.7.201801311814
+java.version=1.8.0_152
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\虚拟机.xmind
+Command-line arguments:  -os win32 -ws win32 -arch x86 -data ./workspace -eclipse.keyring @user.home/Application Data/XMind/secure_storage C:\code\note\虚拟机.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:40:20.353
+!MESSAGE Skip unrecognized command line argument: '-eclipse.keyring'
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:40:20.353
+!MESSAGE Skip unrecognized command line argument: '@user.home/Application Data/XMind/secure_storage'
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:40:21.567
+!MESSAGE Path queued to be opened: C:\code\note\虚拟机.xmind
+
+!ENTRY org.xmind.cathy 1 0 2018-09-17 14:40:22.706
+!MESSAGE Ready to open files: [C:\code\note\虚拟机.xmind]
+
+!ENTRY org.xmind.core.command 1 0 2018-09-17 14:40:22.711
+!MESSAGE Malformed URI: C:\code\note\虚拟机.xmind
+
+!ENTRY net.xmind.workbench 4 0 2018-09-17 14:40:25.176
+!MESSAGE Failed to retrieve site events: 3
+!STACK 0
+java.net.ConnectException: Connection refused: connect
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1944)
+	at sun.net.www.protocol.http.HttpURLConnection$10.run(HttpURLConnection.java:1939)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.net.www.protocol.http.HttpURLConnection.getChainedException(HttpURLConnection.java:1938)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1508)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:1009)
+	at org.xmind.core.net.internal.XMindNetRequest.executeInDaemonThread(XMindNetRequest.java:896)
+	at org.xmind.core.net.internal.XMindNetRequest.access$0(XMindNetRequest.java:889)
+	at org.xmind.core.net.internal.XMindNetRequest$1.run(XMindNetRequest.java:870)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:673)
+	at sun.security.ssl.BaseSSLSocketImpl.connect(BaseSSLSocketImpl.java:173)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:180)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.protocol.https.HttpsClient.<init>(HttpsClient.java:264)
+	at sun.net.www.protocol.https.HttpsClient.New(HttpsClient.java:367)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.getNewHttpClient(AbstractDelegateHttpsURLConnection.java:191)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1156)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1050)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:177)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1564)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1492)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:347)
+	at org.xmind.core.net.internal.XMindNetRequest.send(XMindNetRequest.java:982)
+	... 4 more

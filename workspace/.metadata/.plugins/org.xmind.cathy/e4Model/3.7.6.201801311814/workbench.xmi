@@ -3,7 +3,7 @@
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workbench>&#xD;&#xA;&lt;mruList/>&#xD;&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_wrUlMpCyEeiPGuOLfPobCg" elementId="org.xmind.cathy.window.main" contributorURI="platform:/plugin/org.xmind.cathy" selectedElement="_xhafsJCyEeiPGuOLfPobCg" label="XMind" x="554" y="197" width="1024" height="768">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_wrUlMpCyEeiPGuOLfPobCg" elementId="org.xmind.cathy.window.main" contributorURI="platform:/plugin/org.xmind.cathy" selectedElement="_xhafsJCyEeiPGuOLfPobCg" label="XMind" x="94" y="73" width="1024" height="715">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="isRestored" value="true"/>
@@ -11,7 +11,6 @@
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;workingSets/>"/>
     <persistedState key="aggregateWorkingSetId"/>
     <tags>topLevel</tags>
-    <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_xhafsJCyEeiPGuOLfPobCg" selectedElement="_xhbGwJCyEeiPGuOLfPobCg" horizontal="true">
       <children xsi:type="advanced:PerspectiveStack" xmi:id="_xhbGwJCyEeiPGuOLfPobCg" elementId="org.eclipse.ui.ide.perspectivestack" containerData="7500" selectedElement="_xj-rgJCyEeiPGuOLfPobCg">
         <children xsi:type="advanced:Perspective" xmi:id="_xj-rgJCyEeiPGuOLfPobCg" elementId="org.xmind.ui.perspective.mindmapping" selectedElement="_xj-rgZCyEeiPGuOLfPobCg" label="&#x65b0;&#x5efa;&#x601d;&#x7ef4;&#x56fe;" iconURI="platform:/plugin/org.xmind.ui/icons/xmind.16.png">
@@ -404,11 +403,11 @@
   </descriptors>
   <descriptors xmi:id="_W8IhYETZEeaGL5Gu2uBiyA" elementId="org.xmind.ui.modelPart.image" contributorURI="platform:/plugin/org.xmind.ui.mindmap" label="%part.image.label" tooltip="%part.image.tooltip" closeable="true" contributionURI="bundleclass://org.xmind.ui.mindmap/org.xmind.ui.internal.e4models.ImagePart">
     <persistedState key="modelPart.pages.contributionUri" value="bundleclass://org.xmind.ui.gallery/org.xmind.ui.internal.gallery.ClipArtModelPage,bundleclass://org.xmind.ui.iconfinder/org.xmind.ui.internal.iconfinder.IconfinderModelPage"/>
-    <menus xmi:id="_qvVg8ZFMEeiePrCnGMyKHQ" elementId="org.xmind.ui.modelPart.image.menus.clipArt">
+    <menus xmi:id="_jGih0LpEEeiDZN5KlEYfIg" elementId="org.xmind.ui.modelPart.image.menus.clipArt">
       <tags>ViewMenu</tags>
       <tags>org.xmind.ui.modelPart.image.pages.clipArt</tags>
     </menus>
-    <menus xmi:id="_qvw-wJFMEeiePrCnGMyKHQ" elementId="org.xmind.ui.modelPart.image.menus.iconfinder">
+    <menus xmi:id="_jGoBYLpEEeiDZN5KlEYfIg" elementId="org.xmind.ui.modelPart.image.menus.iconfinder">
       <tags>ViewMenu</tags>
       <tags>org.xmind.ui.modelPart.image.pages.iconfinder</tags>
     </menus>
