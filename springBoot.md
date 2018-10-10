@@ -263,3 +263,22 @@ MyBatis是一个基于SqlSessionFactory构建的框架。对于SqlSessionFactory
 首先，在Web服务器启动的过程中，如果在Spring Boot机制下启用Spring MVC，它就开始初始化一些重要的组件，如DispatcherServlet、HandlerAdapter的实现类RequestMappingHandlerAddapter等组件对象。属性文件DispatcherServlet.properties中定义的对象都是在Spring MVC开始时就初始化，并且存放在Spring IOC容器中。
 
 ![](/image/SpringMVC全流程.png)
+
+
+
+实例在SpringMVC全流程
+
+![](/image/实例在SpringMVC全流程.png)
+
+如果Web工程使用了Spring MVC，那么它在启动阶段就会将注解@RequestMapping所配置的内容保存到处理器映射（HandlerMapping）机制中去，然后等待请求的到来，通过拦截请求信息与HandlerMapping进行匹配，找到对应的处理器，并将处理器及其拦截器保存到HandlerExecutionChain对象中，返回给DispatcherServlet，这样DispatcherServlet就可以运行它们。
+
+
+
+#### 获取控制器参数
+
+处理器是对控制器的包装，在处理器运行的过程中会调度控制器的方法，只是它在进入控制器方法之前会对HTTP的参数和上下文进行解析，将它们转换为控制器所需的参数。
+
+
+
+
+
