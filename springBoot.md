@@ -55,6 +55,7 @@ public @interface RequestMapping {
 
 **覆盖元注解**
 注解@One有成员A，注解@Two有也有成员A，如果@One本身是被元注解@Two标注的，那么按照命名约定，注解@One中的成员A实际会覆盖注解@Two中的成员A
+
 ~~~
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -75,7 +76,9 @@ public @interface SpringBootApplication {
 ~~~
 
 
+
 ### @Configuration和@Bean
+
 `@Configuration`是一个类级别的注解，用于表明此对象是一个bean定义的资源。`@Configuration`类通过public的`@Bean`注解的方法来声明beans。调用`@Configuration`类的`@Bean`方法也可以被用于定义inter-bean依赖。
 
 #### Injection inter-bean dependencies
