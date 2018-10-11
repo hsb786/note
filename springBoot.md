@@ -33,9 +33,9 @@ SpringApplication将从以下位置加载application.properties文件，并把�
 
 ### @AliasFor
 
-
 **在同一个注解内使用**
-互为别名，值必须一样，并且可以一个值获取另一个值
+互为别名，值必须一样
+
 ~~~
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -79,7 +79,7 @@ public @interface SpringBootApplication {
 
 ### @Configuration和@Bean
 
-`@Configuration`是一个类级别的注解，用于表明此对象是一个bean定义的资源。Spring的容器会根据它来生成IOC容器去装配Bean；`@Configuration`类通过public的`@Bean`注解的方法来声明beans。将返回的POJO装配到IOC容器中。调用`@Configuration`类的`@Bean`方法也可以被用于定义inter-bean依赖。
+`@Configuration`是一个类级别的注解，用于表明此对象是一个bean定义的资源。Spring的容器会根据它来生成IOC容器去装配Bean；`@Configuration`类通过public的`@Bean`注解的方法来声明bean。将返回的POJO装配到IOC容器中。调用`@Configuration`类的`@Bean`方法也可以被用于定义inter-bean依赖。
 
 #### Injection inter-bean dependencies
 ~~~
@@ -205,10 +205,6 @@ public Object around(Invocation invocation){
 
 processed()方法会以反射的形式去调用原有的方法。
 
-~~~
-
-~~~
-
 
 
 ![](/image/SpringAOP流程约定.png)
@@ -279,6 +275,141 @@ MyBatis是一个基于SqlSessionFactory构建的框架。对于SqlSessionFactory
 处理器是对控制器的包装，在处理器运行的过程中会调度控制器的方法，只是它在进入控制器方法之前会对HTTP的参数和上下文进行解析，将它们转换为控制器所需的参数。
 
 
+
+####  参数转换
+
+当一个请求来到时，在处理器执行的过程中，它首先从HTTP请求和上下文环境来得到参数。如果是简易的参数它会以简单的转换器进行转换，而这些简单的转换器是Spring MVC自身已经提供了的。但是如果是转换HTTP请求体（Body），它就会调用HttpMessageConverter接口的方法对请求体的信息进行转换，首先它会先判断能否对请求体进行转换，如果可以就会将其转换为Java类型。
+
+![](/image/SpringMVC处理器HTTP请求体转换流程图.png)
+
+> 在Spring MVC中，是通过WebDataBinder机制来获取参数的，它的作用是解析HTTP请求的上下文，然后再控制器的调用之前转换参数并且提供验证的功能。
+
+
+
++ Converter：一对一转换器，也就是从一种类型转换为另外一种类型。例如，有 一个Integer类型的控制器参数，而从HTTP对应的为字符串，对应的Converter就会将字符串转换为Integer类型
++ Formatter：格式化转换器，类似那些日期字符串就是通过它按照约定的格式转换为日期的
++ GenericConverter：将HTTP参数转换为数组
+
+
+
+> 对于数据类型转换，SpringMVC提供了一个服务机制去管理，它就是ConversionService接口。在默认的情况下，会使用这个接口的子类DefaultFormattingConversionService对象来管理这些转换类。
+
+Converter、Formatter和GenericConverter可以通过注册机接口进行注册
+
+![](/image/ConversionService转化机制设计.png)
+
+
+
+> 在SpringBoot中提供了特殊的机制来管理这些转换器。
+>
+> SpringBoot的自动配置类WebMvcAutoConfiguration定义了一个内部类WebMvcAutoConfigurationAddapter。
+
+~~~
+// SpringBoog的自动注册机制
+// 注册各类转换器，registry实际为DefaultFormattingConversionService对象
+@Override
+public void addFormatters(FormatterRegistry registry) {
+	// 遍历IOC容器，找到Converter类型的Bean注册到服务器类中
+    for (Converter<?, ?> converter : getBeansOfType(Converter.class)) {
+   		 registry.addConverter(converter);
+    }
+    for (GenericConverter converter : getBeansOfType(GenericConverter.class)) {
+   		 registry.addConverter(converter);
+    }
+    for (Formatter<?> formatter : getBeansOfType(Formatter.class)) {
+    	 registry.addFormatter(formatter);
+    }
+}
+~~~
+
+
+
+#### 一对一转换器（Converter）
+
+~~~
+public interface Converter<S, T> {
+	// 转换方法，S代表原类型，T代表目标类型
+	T convert(S source);
+}
+~~~
+
+例如，HTTP的类型为字符串（String），而控制器参数为Long，那么就可以通过Spring内部提供的StringToNumber<T Extends Number>进行转换，
+
+假设前端要传递一个用户的信息，这个用户信息的格式是{id}-{userName}-{note}，而控制器的参数是User类对象，就需要自定义一个从String转换为User的转换器。
+
+~~~
+@Component
+public class StringToUserConverter implements Converter<String, User> {
+	@Override
+	public User convert(String userStr){
+        User user=new User();
+        String[] strArr=userStr.split("-");
+        Long id=Long.parseLong(strArr[0]);
+        user.setId(id);
+        ......
+        return user;
+	}
+}
+~~~
+
+
+
+#### 参数验证机制
+
+在WebDataBinder中除了可以注册转换器外，还运行注册验证器（Validator）。
+
+可以在Spring控制器中，使用注解@InitBinder，这个注解的作用是运行在进入控制器方法前修改WebDataBinder机制。在SpringMVC中，定义了一个接口Validator
+
+~~~
+public interface Validator{
+	/**
+	* 判定当前验证器是否支持该Class类型的验证
+	*/
+    boolean supports(Class<?> clazz);
+    
+    /**
+    * 如果supports返回true，则这个方法执行验证逻辑
+    * @param target 被验证POJO对象
+    * @param errors 错误对象   发现错误，保存包erors对象中
+    */
+    void validate(Object target，Errors errors)；
+}
+~~~
+
+
+
+自定义用户验证器
+
+~~~
+pbulic class UserValidator implements Validator{
+    @Override
+    public boolean supports(Class<?>clazz){
+        return clazz.equals(User.class)；
+    }
+    
+    @Override
+    public void validate(Object target,Errors errors){
+        if(target==null){
+        	//直接在参数处报错，这样就不能进入控制器的方法
+            errors.rejectValue("",null,"用户不能为空");
+            return;
+        }
+        User user=(User)target;
+        if(StringUtils.isEmpty(user.getUserName)){
+        	//增加错误，可以进入控制器方法
+            errors.rejectValue("userName",null,"用户名不能为空");
+        }
+        
+    }
+}
+~~~
+
+有了这个验证器，Spring还不会自动启用它，因为还没有绑定给WebDataBinder机制。在Spring MVC中提供了一个注解@InitBinder，它的作用是在执行控制器方法前，处理器会执行@InitBinder标注的方法。这时可以将WebDataBinder对象作为参数传递到方法中，通过这层关系得到WebDataBinder对象，这个对象有一个setValidator方法，它可以绑定自定义的监听器。
+
+~~~
+@ResponseController
+
+~~~
 
 
 
