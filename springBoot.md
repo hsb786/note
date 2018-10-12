@@ -1,11 +1,5 @@
 
-
-### Restart vs Reload 
-
-Spring Boot提供的重启技术是通过使用两个类加载器实现的。没有变化的类（比如那些第三方jars）会加载进一个基础（basic）classloader，正在开发的类会加载进一个重启（restart）classloader。当应用重启时，restart类加载器会被丢弃，并创建一个新的。这种方式意味着应用重启通常比冷启动（cold starts）快很多，因为基础类加载器已经可用
-
-
-### Application属性文件
+#### Application属性文件
 SpringApplication将从以下位置加载application.properties文件，并把它们添加到Spring Environment中：
 + 当前目录下的/config子目录
 + 当前目录
@@ -16,11 +10,13 @@ SpringApplication将从以下位置加载application.properties文件，并把�
 
 - - -
 
-### 注解
+#### 注解
 **元注解**
+
 >元注解是一种标注在别的注解之上的注解。如果一个注解可以标注在别的注解上，那么这个注解就是元注解。
 
 **Stereotype注解（模式化注解、角色类注解）**
+
 >Stereotype注解是一种在应用中，常被用于声明要扮演某种职责或者角色的注解。
 
 例如：
@@ -28,10 +24,11 @@ SpringApplication将从以下位置加载application.properties文件，并把�
 + @Component    被Spring管理的组件的对应注解。任何标注了@Component的组件都会在Spring组件扫描时被扫描到。同样的，任何标注了 被元注解@Component标注过的注解 的组件，也会在Spring组件扫描时被扫描到。例如，@Service就是一种被元注解@Component标注过的注解。
 
 **组合注解**
+
 >组合注解是一种被一个或者多个元注解标注过的注解，用以撮合多个元注解的特性到新的注解
 
 
-### @AliasFor
+#### @AliasFor
 
 **在同一个注解内使用**
 互为别名，值必须一样
@@ -77,7 +74,7 @@ public @interface SpringBootApplication {
 
 
 
-### @Configuration和@Bean
+#### @Configuration和@Bean
 
 `@Configuration`是一个类级别的注解，用于表明此对象是一个bean定义的资源。Spring的容器会根据它来生成IOC容器去装配Bean；`@Configuration`类通过public的`@Bean`注解的方法来声明bean。将返回的POJO装配到IOC容器中。调用`@Configuration`类的`@Bean`方法也可以被用于定义inter-bean依赖。
 
@@ -101,7 +98,7 @@ public class AppConfig {
 
 >声明inter-bean依赖的方法只会在`@Bean`声明在`@Configuration`类下时才会生效。你不能使用`@Component`类声明inter-bean依赖。
 
-### @Import
+#### @Import
 `Import`注解允许从其它配置类中加载`@Bean`的配置：
 ~~~
 @Configuration
@@ -248,7 +245,7 @@ MyBatis是一个基于SqlSessionFactory构建的框架。对于SqlSessionFactory
 
 
 
-### Spring MVC
+#### Spring MVC
 
 ![](/image/SpringMVC架构设计图.png)
 
@@ -266,13 +263,110 @@ MyBatis是一个基于SqlSessionFactory构建的框架。对于SqlSessionFactory
 
 ![](/image/实例在SpringMVC全流程.png)
 
-如果Web工程使用了Spring MVC，那么它在启动阶段就会将注解@RequestMapping所配置的内容保存到处理器映射（HandlerMapping）机制中去，然后等待请求的到来，通过拦截请求信息与HandlerMapping进行匹配，找到对应的处理器，并将处理器及其拦截器保存到HandlerExecutionChain对象中，返回给DispatcherServlet，这样DispatcherServlet就可以运行它们。
+
+
+#### 处理器映射
+
+> 如果Web工程使用了Spring MVC，那么它在启动阶段就会将注解@RequestMapping所配置的内容保存到处理器映射（HandlerMapping）机制中去，然后等待请求的到来，通过拦截请求信息与HandlerMapping进行匹配，找到对应的处理器，并将处理器及其拦截器保存到HandlerExecutionChain对象中，返回给DispatcherServlet，这样DispatcherServlet就可以运行它们。
+
+~~~
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Mapping
+public @interface RequestMapping {
+	
+	// 配置请求映射名称
+	String name() default "";
+	
+	// 通过路径映射
+	@AliasFor("path")
+	String[] value() default {};
+	
+	// 通过路径映射会path配置项
+	@AliasFor("value")
+	String[] path() default {};
+	
+	// 限定只响应HTTP请求类型，如GET、POST、HEAD.....
+	// 默认的情况下，可以响应所有的请求类型
+	RequestMethod[] method() default {};
+	
+	// 当存在对应的HTTP参数时才响应
+	String[] params() default {};
+	
+	// 限定请求头存在对应的参数时才响应
+	String[] headers() default {};
+
+	// 限定HTTP请求体提交类型，如"application/json"、"text/html"
+	String[] consumes() default {};
+	
+	// 限定返回的内容类型，仅当HTTP请求头的（Accept）类型中包含该指定类型时才返回
+	String[] produces() default {};
+}
+~~~
+
+
 
 
 
 #### 获取控制器参数
 
 处理器是对控制器的包装，在处理器运行的过程中会调度控制器的方法，只是它在进入控制器方法之前会对HTTP的参数和上下文进行解析，将它们转换为控制器所需的参数。
+
+##### 在无注解下获取参数
+
+在没有注解的情况下，Spring MVC也可以获取参数，且参数允许为空，唯一的要求是参数名称和HTTP请求的参数名称保持一致
+
+##### 使用@RequestParam获取参数
+
+@Requestparam定义了前后端参数名称的映射关系，在默认情况下@RequestParam标注的参数是不能为空的，为了让它能够为空，可以配置其属性required为false
+
+~~~
+@RequestParam(value="str_val",required=false) String strVal
+~~~
+
+##### 传递数组
+
+SpringMVC内部已经能够支持用逗号分隔的数组参数
+
+~~~
+public Map<String,Object> requestArray(int[] intArr,Long[] longArr)
+http://localhost:8080/my/requestArray?intArr=1,2,3&longArr=4,5,6
+~~~
+
+##### 传递JSON
+
+~~~
+public User insert(@RequestBody User user)
+~~~
+
+@RequestBody意味着它将接受前端提交的JSON请求，而在JSON请求体与User类之间的属性名称是保持一致的，这样Spring MVC就会通过这层映射关系将JSON请求体转换为User对象
+
+##### 通过URL传递参数
+
+通过处理器映射和注解@PathVariable的组合获取URL参数。
+
+~~~
+@GetMapping{"/{id}"}
+public User get(@PathVariable("id") Long id)
+~~~
+
+##### 获取格式化参数
+
+在一些应用中，往往需要格式化数据，例如日期约定为yyyy-MM-dd，金额约定为$1,000.00；SpringMVC提供了@DateTimeFormat和@NumberFormat对其格式化
+
+~~~
+public Map<String,Object> format(@DateTimeFormat(iso=ISO.DATE) Date date,
+							@NumberFormat(pattern="#,###.##") Double number)
+~~~
+
+在SpringBoot中，日期参数的格式化也可以不使用@DateTimeFormat，而只在配置文件application.properties中加入如下配置项即可：
+
+~~~
+spring.mvc.date-format=yyyy-MM-dd
+~~~
+
+
 
 
 
@@ -282,7 +376,9 @@ MyBatis是一个基于SqlSessionFactory构建的框架。对于SqlSessionFactory
 
 ![](/image/SpringMVC处理器HTTP请求体转换流程图.png)
 
-> 在Spring MVC中，是通过WebDataBinder机制来获取参数的，它的作用是解析HTTP请求的上下文，然后再控制器的调用之前转换参数并且提供验证的功能。
+> 在Spring MVC中，是通过WebDataBinder机制来获取参数的，它的作用是解析HTTP请求的上下文，然后在控制器的调用之前转换参数并且提供验证的功能，为调用控制器方法做准备。
+
+处理器会从HTTP请求中读取数据，然后通过三种接口来进行各类参数转换，这三种接口是Converter、Formatter、GenericConverter。
 
 
 
@@ -407,9 +503,36 @@ pbulic class UserValidator implements Validator{
 有了这个验证器，Spring还不会自动启用它，因为还没有绑定给WebDataBinder机制。在Spring MVC中提供了一个注解@InitBinder，它的作用是在执行控制器方法前，处理器会执行@InitBinder标注的方法。这时可以将WebDataBinder对象作为参数传递到方法中，通过这层关系得到WebDataBinder对象，这个对象有一个setValidator方法，它可以绑定自定义的监听器。
 
 ~~~
-@ResponseController
+ @InitBinder
+ public void initBinder(WebDataBinder binder) {
+     // 绑定验证器
+     binder.setValidator(new UserValidator());
+ }
 
 ~~~
 
 
+
+
+
+#### 拦截器
+
+> 当请求来到DispatcherServlet时，它会根据HandlerMapping的机制找到处理器，这样就会返回一个HandlerExecutionChain对象，这个对象包含处理器和拦截器。这里的拦截器会对处理器进行拦截，这样通过拦截器就可以增强处理器的功能
+
+所有的拦截器都需要实现HandlerInterceptor接口
+
+![](D:\note\image\拦截器执行过程.png)
+
+有多个拦截器时，处理器前（preHandle）方法采用先注册先执行，而处理器后方法和完成方法则是先注册后执行的规则。处理器前（preHandle）一旦返回false，后续的拦截器、处理器和所有拦截器的处理器后（postHandle）方法都不会被执行。完成方法afterCompletion则不一样，它只会执行返回true的拦截器的完成方法，而且时先注册后执行
+
+
+
+
+
+#### 给控制器增加通知
+
++ @ControllerAdvice：定义一个控制器的通知类，允许定义一些关于增强控制器的各类通知和限定增强哪些控制器功能等
++ @InitBinder：定义控制器参数绑定规则，如转换规则、格式化等，它会在参数转换之前执行
++ @ExceptionHandler：定义控制器发生异常后的操作
++ @ModelAttrivute：在控制器方法执行之前，对数据模型进行操作
 
