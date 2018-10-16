@@ -224,8 +224,33 @@ public class MyAspect{
     public void before(){
         
     }
+    
+    @DeclareParents(value="xxx.xxx.UserServiceImpl+"，defaultImpl=UserValidatorImpl.class)
+    public UserValidator userValidator
 }
 ~~~
+
+
+
+value：指向你要增强功能的目标对象
+
+defaultImpl：引入增强功能的类
+
+
+
+~~~
+UserValidator userValidator=(UserValidator)userService;
+~~~
+
+Proxy.newProxyInstance()中，Spring会把UserService和UserValidator两个接口 传递进去，让代理对象挂到这两个接口下，这样这个代理对象就能够相互转换并且使用它们的方法 
+
+
+
+> 在自调用的过程中，是类自身的调用，而不是代理对象去调用，那么就不会产生AOP，这样Spring就不能把你的代码织入到约定的流程中
+
+
+
+----
 
 
 
@@ -239,9 +264,461 @@ MyBatis是一个基于SqlSessionFactory构建的框架。对于SqlSessionFactory
 
 #### 事务
 
+Spring利用其AOP为我们提供了一个数据库事务的约定流程。通过这个约定流程就可以减少大量的冗余代码和一些没有必要的try...catch...finally语句，让开发者能够更加集中与业务的开发，这样开发的代码可读性就更高，也更好维护。
+
 通过@Transactional进行标注启用数据库事务功能。配置内容是在Spring IOC容器在加载时就会将这些配置信息解析出来，然后把这些信息存到事务定义器（TransactionDefinition接口的实现类）里，并且记录哪些类或者方法需要启动事务功能，采取什么策略去执行事务。
 
 ![](/image/Spring数据库事务约定.png)
+
+
+
+#### Spring事务管理器
+
+事务的打开、回滚和提交是由事务管理器来完成的。在Spring中，事务管理器的顶层接口为PlatformTransactionManager
+
+![](D:\note\image\Spring事务管理器.png)
+
+
+
+~~~
+package org.springframework.transaction;
+
+public interface PlatformTransactionManager {
+	// 获取事务
+    TransactionStatus getTransaction(@Nullable TransactionDefinition definition) throws TransactionException;
+	// 提交事务
+    void commit(TransactionStatus status) throws TransactionException;
+	// 回滚事务
+    void rollback(TransactionStatus status) throws TransactionException;
+
+}
+~~~
+
+
+
+Spring在事务管理时，就是将这些方法按照约定 织入对应的流程中，其中getTransaction方法的参数是一个事务定义器（TransactionDefinition），它是依赖于我们配置的@Transacional的配置项生成的，于是通过它就能够设置事务的属性了。
+
+
+
+在SpringBoot中，当你依赖于mybatis-spring-boot-starter之后，它会自动创建一个DataSource-TransactionManager对象，作为事务管理器。
+
+#### 数据库事务基本特征
+
++ Atomic(原子性)：事务中包含的操作被看作一个整体的业务单元，这个业务单元中的操作要么全部成功，要么全部失败
++ Consistency(一致性)：事务在完成时，必须使所有的数据都保持一致状态
++ Isolation(隔离性)：多个应用程序线程同时访问同一数据，这样数据库同样的数据就会在各个不同的事务中被访问，这样会产生丢失更新。所以数据库定义了隔离级别的概念
++ Durabillity(持久性)：事务结束后，所有的数据会固化到一个地方
+
+一般而言，存在两种类型的丢失更新
+
+![](D:\note\image\第一类丢失更新.png)
+
+T5时刻事务1回滚，导致原本库存为99的变为了100，显然事务2的结果就丢失了。
+
+> 对于这样一个事务回滚，另外一个事务提交而引发的数据不一致的情况，称为`第一类丢失更新`（如今数据库系统不会出现这种情况）
+
+
+
+![](D:\note\image\第二类丢失更新.png)
+
+T5时刻事务1提交的事务，就会引发事务2提交结果的丢失
+
+> 多个事务都提交引发的丢失更新称为`第二类丢失更新`
+
+
+
+#### 隔离级别
+
+为了压制丢失更新，数据库标准提出了4类隔离级别，在不同的程度上压制丢失更新
+
+**未提交读（read uncommitted）**
+
+允许一个事务读取另外一个事务没有提交的数据。    最大的坏处是出现脏读
+
+![](D:\note\image\脏读.png)
+
+在T3时刻，因为采用未提交读，所以事务2可以读取事务1未提交的库存数据为1，这里当它扣减库存后则数据为0，然后它提交了事务，库存就变为了0，而事务1在T5时刻回滚事务，因为第一类丢失更新已经被克服，所以它不会将库存回滚到2，那么最后的结果就变为了0
+
+
+
+**读写提交（read committed）**
+
+一个事务只能读取另外一个事务已经提交的数据
+
+ ![](D:\note\image\克服脏读.png)
+
+可以克服脏读，但会出现重复读的问题
+
+
+
+![](D:\note\image\不可重复读.png)
+
+在T5时刻，扣减库存的时候发现库存为0，于是就无法扣减库存了。这里的问题在于事务2之前认为可以扣减，而到扣减那一步却发现已经不可以扣减，于是库存对于事务2而言是一个可变话的值，这样的现象我们称为不可重复读。
+
+**可重复读**
+
+![](D:\note\image\克服不可重复读.png)
+
+事务2在T3时刻尝试读取库存，但是此时这个库已经被事务1事先读取，所以这个时候数据库就阻塞它的读取，直至事务1提交，事务2才能读取库存的值
+
+
+
+![](D:\note\image\幻读.png)
+
+幻读不是针对一条数据库记录而言，而是多条记录。而可重复读是针对数据库的单一条记录，例如，商品的库存是以数据库里面的一条记录存储的，它可以产生可重复读，而不能产生幻读。
+
+
+
+**串行化（Serializable）**
+
+要求所有的SQL都会按照顺序执行，能够完全保证数据的一致性
+
+**使用合理的隔离级别**
+
+![](D:\note\image\隔离级别和可能发生的现象.png)
+
+在现实中一般而言，选择隔离级别会以读写提交为主，它能够防止脏读，而不能避免不可重复读和幻读。
+
+对于隔离级别，不同的数据库的支持也是不一样的。例如，Oracle只能支持读写提交和串行化，而MySQL则能够支持4种，对于Oracle默认的隔离级别为读写提交，MySQL则是可重复读。
+
+**传播行为**
+
+> 传播行为是方法之间调用事务采取的策略问题。
+
+![](D:\note\image\事务的传播行为.png)
+
+~~~
+package org.springframework.transaction.annotation;
+
+public enum Propagation {
+
+	/**
+	* 需要事务，它是默认传播行为，如果当前存在事务，就沿用当前事务，
+	* 否则新建一个事务允许子方法
+	*/
+	REQUIRED(TransactionDefinition.PROPAGATION_REQUIRED),
+
+	/**
+	* 支持事务，如果当前存在事务，就沿用当前事务，
+	* 如果不存在，则继续采用无事务的方式允许子方法
+	*/
+	SUPPORTS(TransactionDefinition.PROPAGATION_SUPPORTS),
+
+	/**
+	* 必须使用事务，如果当前没有事务，则会抛出异常，
+	* 如果存在当前事务，就沿用当前事务
+	*/
+	MANDATORY(TransactionDefinition.PROPAGATION_MANDATORY),
+
+	/**
+	* 无论当前事务是否存在，都会创建新事务运行方法，
+	* 这样新事务就可以拥有新的锁和隔离级别等特性，与当前事务湘湖独立
+	*/
+	REQUIRES_NEW(TransactionDefinition.PROPAGATION_REQUIRES_NEW),
+
+	/**
+	* 不支持事务，当前存在事务时，将挂起事务，运行方法
+	*/
+	NOT_SUPPORTED(TransactionDefinition.PROPAGATION_NOT_SUPPORTED),
+
+	/**
+	* 不支持事务，如果当前方法存在事务，则抛出异常，否则继续使用无事务机制运行
+	*/
+	NEVER(TransactionDefinition.PROPAGATION_NEVER),
+
+	/**
+	* 在当前方法调用子方法时，如果子方法发生异常，
+	* 只回滚子方法执行过的SQL，而不回滚当前方法的事务
+	*/
+	NESTED(TransactionDefinition.PROPAGATION_NESTED);
+
+}
+~~~
+
+
+
+常用的传播行为：REQUIRED、REQUIRES_NEW和NESTED
+
+在大部分的数据库中，一段SQL语句中可以设置一个标志位，然后后面的代码执行时如果有异常，只是回滚到这个标志位的数据状态，而不会让这个标志位之前的代码也回滚。这个标志位，在数据库的概念中被称为保存点（save point）。
+
+Spring也是使用保存点技术来完成让子事务回滚而不致使当前事务回滚的工作。注意，并不是所有的数据库都支持保存点技术，因此Spring内部有这样的规则：
+
+> 当数据库支持保存点技术时，就启用保存点技术；如果不支持，就新建一个事务去运行你的代码，即等价于REQUIRES_NEW传播行为
+
+NESTED传播行为和REQUIRES_NEW还是有区别的。NESTED传播行为会沿用当前事务的隔离级别和锁等特性，而REQUIRES_NEW则可以拥有自己独立的隔离级别和锁等特性
+
+
+
+**@Transactional自调用失效问题**
+
+Spring数据库事务的约定，其实现原理是AOP，而AOP的原理是动态代理。
+
+> 在自调用的过程中，是类自身的调用，而不是代理对象去调用，那么就不会产生AOP
+
+
+
+#### 悲观锁
+
+在高并发中出现超发现象，根本在于贡献的数据被多个线程所修改，无法保证其执行的顺序。如果一个数据库事务读取到数据后，就将数据直接绑定，不允许别的线程进行读写操作，直至当前数据库事务完成后才释放这条数据的锁，则不会出现超发问题。
+
+> 在SQL的最后加入for update   。   这样在数据库事务执行的过程中，就会锁定查询出来的数据，其它的事务将不能再对其进行读写，这样就避免了数据的不一致       
+
+![](/image/悲观锁等待图示.png)
+
+悲观锁是使用 数据库内部的锁对记录进行加锁，从而使得其他事务等待以保证数据的一致。但这样会造成过多的等待和事务上下文的切换导致缓慢。
+
+
+
+**乐观锁**
+
+~~~
+<update id="decreaseProduct">
+	update t_product set stock = stock - #{quantity},
+	version = version +1
+	where id = #{id}  and versioin=#{version}
+</update>
+~~~
+
+
+
+使用多线程的概念CAS（Compare and Swap），并用版本号解决ABA问题
+
+![](D:\note\image\使用版本号解决ABA问题.png)
+
+但是，因为加入了版本号的判断，所以大量的请求得到了失败的结果，而且这个失败率有点高。
+
+为了处理这个结果，乐观锁还可以引入重入机制，也就是一旦更新失败，就重新做一次，所以有时候 也可以称乐观锁为可重入的锁。其原理是一旦发现版本号被更新，不是结束请求，而是重新做一次乐观锁流程，直至成功为止。但是这个流程的重入会带来一个问题，那就是可能造成大量的SQL被执行。为了克服这个问题，一般会考虑使用限制时间或者重入次数的办法，以压制过多的SQL被执行
+
+~~~
+// 当前时间
+long start = System.currentTimeMillis();
+// 循环尝试直至成功
+while (true) {
+    // 循环时间
+    long end = System.currentTimeMillis();
+    // 如果循环时间大于100毫秒返回终止循环
+    if (end - start > 100) {
+    	return false;
+    }
+    // 执行一些操作
+    ..............
+}
+//
+~~~
+
+
+
+**总结**
+
+乐观锁是一种不使用数据库锁的机制，并且不会造成线程的阻塞，只是采用多版本号机制来实现。但是，因为版本的冲突造成了请求失败的概率剧增，所以这时往往需要通过重入的机制将请求失败的概率降低。但是，多次的重入会带来过多执行SQL问题。为了克服这个问题，可以考虑使用按时间戳或者限制重入次数的办法。
+
+
+
+****
+
+
+
+#### Redis
+
+在Java中与Redis连接的驱动存在很多种，目前比较广泛使用的是Jedis
+
+Spring提供了一个RedisConnectionFactory接口，通过它可以生成一个RedisConnection接口对象，而RedisConnection接口对象是对Redis底层接口的封装。例如Spring会提供RedisConnection接口的实现类JedisConnection去封装原有的Jedis（redis.client.jedis.Jedis）对象
+
+![](D:\note\image\Spring对Redis的类设计.png)
+
+
+
+#### RedisTemplate
+
+RedisTemplate是一个强大的类，首先它会自动从RedisConnectionFactory工厂中获取连接，然后执行对应的Redis命令，在最后还会关闭Redis的连接。
+
+
+
+ ![](D:\note\image\Spring关于Redis的序列化器设置.png)
+
+JdkSerializationREdisSerializer是RedisTemplate默认的序列化器
+
+![](D:\note\image\spring-data-redis序列化器实现原理.png)
+
+![](D:\note\image\RedisTemplate中的序列化器属性.png)
+
+
+
+~~~
+
+~~~
+
+ ![](D:\note\image\redis01.png)
+
+RedisTemplate会默认使用JdkSerializationRedisSerializer进行序列化键值，Redis服务器存入的是一个经过序列化后的特殊字符串，导致上图得到的序列化后的二进制字符串
+
+
+
+~~~
+RedisSerializer<String> stringRedisSerializer = redisTemplate.getStringSerializer();
+redisTemplate.setKeySerializer(stringRedisSerializer);
+redisTemplate.setHashKeySerializer(stringRedisSerializer);
+redisTemplate.setHashValueSerializer(stringRedisSerializer);
+~~~
+
+主动将Redis的键和散列结构的field和value均采用字符串序列化器
+
+![](D:\note\image\redis02.png)
+
+
+
+**获取Redis数据类型操作接口**
+
+~~~
+// 获取散列操作接口
+redisTemplate.opsForHash()
+// 获取字符串操作接口
+redisTemplate.opsForValue()
+// 获取列表接口
+redisTemplate.opsForList()
+// 获取集合接口
+redisTemplate.opsForSet()
+// 获取有序集合接口
+redisTemplate.opsForZSet()
+// 获取地理位置接口
+redisTemplate.opsForGeo()
+// 获取基数接口
+redisTemplate.opsForHyperLogLog()
+~~~
+
+
+
+**SessionCallback和RedisCallback接口**
+
+可以让RedisTemplate进行回调，通过它们可以在同一条连接上执行多个Redis命令
+
+| 接口名          | 优点                                                         |
+| --------------- | ------------------------------------------------------------ |
+| SessionCallback | 高级接口，提供了良好的封装，比较友好，优先使用               |
+| RedisCallback   | 比较底层，需要处理的内容也比较多，可读性较差，如果不考虑改写底层，尽量不使用它 |
+
+~~~
+// RedisCallback
+redisTemplate.execute((RedisConnection rc) -> {
+    rc.set("key1".getBytes(), "value1".getBytes());
+    rc.hSet("hash".getBytes(), "field".getBytes(), "hvalue".getBytes());
+    return null;
+});
+
+// SessionCallback
+redisTemplate.execute((RedisOperations ro) -> {
+    ro.opsForValue().set("key1", "value1");
+    ro.opsForHash().put("hash", "field", "hvalue");
+    return null;
+});
+~~~
+
+
+
+**Redis数据类型**
+
+常用的Redis数据类型（字符串、散列、列表、集合、有序集合）
+
+RedisTemplate并不能支持底层所有的Redis命令，可以使用原始的Redis连接的Jedis对象
+
+~~~
+Jedis jedis = (Jedis) stringRedisTemplate.getConnectionFactory().getConnection().getNativeConnection();
+
+~~~
+
+在Redis中列表是一种链表结构
+
+
+
+#### Redis事务
+
+在Redis中使用事务，通常的命令组合是watch... multi ... exec，也就是要在一个Redis连接中执行多个命令，可以使用SessionCallback接口
+
+![](D:\note\image\Redis事务执行过程.png)
+
+
+
+~~~
+ redisTemplate.opsForValue().set("key1", "value1");
+ List list= (List) redisTemplate.execute((RedisOperations operations)->{
+ 	 // 设置要监控key1
+     operations.watch("key1");
+     // 开启事务，在exec命令执行前，全部都只是进入队列
+     operations.multi();
+     operations.opsForValue().set("key2", "value2");
+     // 执行加1命令，因为key1对应的值为字符串，所以这里报错
+     operations.opsForValue().increment("key1", 1);
+     // 执行exec命令，判断key1是否在监控后被修改过
+     return operations.exec();
+ });
+~~~
+
+
+
+上面代码中，服务器抛出了异常，但key2和key3已经赋值成功了。
+
+> Redis事务是先让命令进入队列，所以一开始它并没有检查这个加一命令是否能够成功，只有在exec命令执行的时候，才能发现错误，对于出错的命令Redis只是报出错误，而错误后面的命令依旧被执行
+
+
+
+**Lua脚本**
+
+优点：
+
++ 强大的运算功能
++ 具备原子性
+
+
+
+允许Lua的方法：
+
++ 直接发生Lua到Redis服务器去执行
++ 先把Lua发送给Redis，Redis会对Lua脚本进行缓存，然后返回一个SHA1的32为编码回来，之后只需要发送ShA1和相关参数给Redis便可以执行了
+
+
+
+**为什么通过32为编码执行**
+
+如果Lua脚本很长，那么就需要通过网络传递脚本给Redis去执行，而现实的情况是网络的传输速度往往跟不上Redis的执行速度，所以网络就成为Redis执行的瓶颈。如果 只是传递32位编码和参数，那么需要传递的消息就少了许多，这样就可以极大地减少网络传输的内容，从而提供系统的性能
+
+
+
+为了支持Redis的Lua脚本，Spring提供了RedisScript接口，与此同时也有一个DefaultRedisScript实现类
+
+~~~
+public interface RedisScript<T>{
+    // 获取脚本的Sha1
+    String getSha1();
+    // 获取脚本的返回值
+    Class<T> getResultType();
+    // 获取脚本的字符串
+    String getScriptAsString();
+}
+~~~
+
+
+
+**缓存管理器**
+
+Spring在使用缓存注解前，需要配置缓存管理器，缓存管理器将提供一些重要的信息，如缓存类型、超过时间等。Spring可以支持多种缓存的使用，因此它存在多种缓存处理器，并提供了缓存处理器的接口CacheManager和与之相关的类
+
++ @CachePut 表示将方法结果返回存放到缓存中
++ @Cacheable 表示先从缓存中通过定义的键查询，如果可以查询到数据，则返回，否则执行该方法，返回数据，并且将返回结果保存到缓存中
++ @CacheEvict 通过定义的键移除缓存，它有一个Boolean类型的配置项beoreInvocation，表示在方法之前或者之后移除缓存。因为其默认值为false，所以默认为方法之后将缓存移除
+
+对于命中率很低的场景，使用缓存并不能有效提高系统性能，一般不采用缓存机制
+
+Redis缓存机制会使用#{cacheName}:#{key}的形式作为键保存数据
+
+RedisCacheManager采用永不超时的机制
+
+> 对于数据的写操作，一般会认为缓存不可信，所以会考虑从数据库中先读取最新数据，然后再更新数据，以避免将缓存的脏数据写入数据库中，导致出现业务问题
+
+
+
+
+
+****
 
 
 
@@ -536,3 +1013,17 @@ pbulic class UserValidator implements Validator{
 + @ExceptionHandler：定义控制器发生异常后的操作
 + @ModelAttrivute：在控制器方法执行之前，对数据模型进行操作
 
+
+
+----
+
+
+
+#### Spring Boot 自动装配
+
++ @ConditionalOnClass：存在哪些类，才去装配当前类
++ @EnableConfigurationProperties：使得哪个类可以通过配置文件装配（在配置文件中可以配置的原因）
++ @ConditionalOnMissingBean：在缺失某些类型的Bean的时候，才将方法返回的Bean装配到IOC容器中（使用开发者自己定制的Bean）
++ @ConditionalOnProperty：检测属性配置的注解，满足条件才会启动这个类作为配置文件
++ @import：加载其他的类到当前的环境中来
++ @AutoConfigureAfter：在完成指定类的装配后才执行
