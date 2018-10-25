@@ -207,6 +207,10 @@ I/O可以分为广义的两大类别：File I/O和Stream I/O。那么相应地�
 
 
 
+#### Socket
+
+> 全部socket通道类（DaatagramChannel、SocketChannel和ServerSocketChannel）在被实例化都会创建一个对等socket对象（DatagramSocket、Socket和ServerSocket），它们已经被更新以识别通道。对等socket可以通过调用socket()方法从一个通道上获取。
+
 
 
 
