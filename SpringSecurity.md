@@ -82,3 +82,39 @@ UserDetailsService负责从特定的地方加载用户信息，常见的实现�
 
 
 UserDetailsService接口作为桥梁，是DaoAuthenticationProvider与特定用户信息来源解耦的地方，UserDetailsService由UserDetails和UserDetailsManager所构成；UserDetails和UserDetailsManager各司其职，一个是对基本用户信息进行封装，一个是对基本用户信息进行管理
+
+
+
+java assist idea添加
+
+jsonpath  github
+
+controller  url参数 正则表达式  
+
+jsonview
+
+@valid    BindingResult   hibernate validator    自定义validator注解
+
+BasicErrorController   请求头  accept  ControllerAdvice
+
+
+
+
+
+filter -> interceptor -> controllerAdvice -> aspect -> controller
+
+过滤器 http请求和响应对象    
+
+ 拦截器  http请求和响应对象  处理请求方法信息
+
+切面 参数值
+
+
+
+ExceptionTranslationFilter
+
+FilterSecurityInterceptor
+
+
+
+ TokenEnhancer

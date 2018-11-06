@@ -25,3 +25,10 @@ Eureka Server采用的就是Peer to Peer的复制模式
 
 
 
+----
+
+
+
+@EnableDiscoveryClient
+
+让该应用注册为Eureka客户端应用，以获得服务发现的能力
