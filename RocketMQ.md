@@ -30,6 +30,10 @@
 + NameServer 整个消息队列中的状态服务器
 + Topic  区分不同类型的消息
 + Message Queue 类似于分区，消息可以并行地向各个Message Queue发送
++ Tag 消息子类型  服务器端基于Tag进行过滤
++ Key 消息在业务层面的唯一标识码，主要用于通过命令行查询消息
+
+![](D:\note\image\RocketMQ各角色.jpg)
 
 
 
