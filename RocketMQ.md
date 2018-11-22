@@ -26,14 +26,34 @@
 
 + Producer	生产者
 + Consumer 消费者
-+ Broker 负责暂存、传输
-+ NameServer 整个消息队列中的状态服务器
++ Broker 负责暂存、传输                                  实际存储消息的数据节点
++ NameServer 整个消息队列中的状态服务器   服务发现节点   
 + Topic  区分不同类型的消息
 + Message Queue 类似于分区，消息可以并行地向各个Message Queue发送
 + Tag 消息子类型  服务器端基于Tag进行过滤
 + Key 消息在业务层面的唯一标识码，主要用于通过命令行查询消息
 
 ![](D:\note\image\RocketMQ各角色.jpg)
+
+
+
+**RocketMQ的存储模型**
+
+RocketMQ的消息的存储是由ConsumeQueue和CommitLog配合来完成的，ConsumeQueue中只存储很少的数据，消息主体都是通过CommitLog来进行读写
+
++ CommitLog：消息主体以及元数据的存储主体，对CommitLog建立一个ConsumeQueue，每个ConsumeQueue对应一个MessageQueue，所以只要有Commit Log 在，Consume Queue即使数据丢失，仍然可以恢复出来
++ Consume Queue：一个消息的逻辑队列，存储了这个Queue在CommitLog中的起始offset，log大小和MessageTag的hashCode。每个Topic下的每个Queue都有一个对应的ConsumerQueue文件，例如Topic中有三个队列，每个队列中的消息索引都会有一个编号，编号从0开始，往上递增。并由此一个位点offset的概念
+
+
+
+#### 分布式消息系统中，如何避免重复消费
+
+造成消息重复的根本原因是：网络不可靠。只要通过网络交换数据，就无法避免这个问题。所以解决这个的办法就是绕过这个问题。那么问题就变成了：`如果消费端收到两条一样的消息，应该怎样处理？`
+
++ 消费端处理消息的业务逻辑保存幂等性
++ 保证每条消息 都有唯一编号且保证消息处理成功与去重表的日志同时出现
+
+通过幂等性，不管来多少条重复消息，可以实现处理的结果都一样。再利用一张日志表来记录已经处理成功的消息的ID，如果新到的消息ID已经在日志表中，那么就可以不再处理这条消息，避免消息的重复处理
 
 
 

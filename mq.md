@@ -33,3 +33,14 @@ saveAndSendMessage(TpcMqMessageDto)
 directSendMessage(TpcMqMessageDto)
 ~~~
 
+
+
+如何避免重复消费
+
+OptPushMessageListener 会把消费过的消息的key存放在redis里面，如redis中包含该key，就是重复消费
+
+
+
+如何保证消息投递
+
+将消息保存进数据库中，用ElasticJob写了个定时任务，爬取消息投递
